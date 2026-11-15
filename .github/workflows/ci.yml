@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  core-linux:
+    name: FamilyCore tests (Linux)
+    runs-on: ubuntu-24.04
+    container: swift:6.1
+    steps:
+      - uses: actions/checkout@v4
+      - run: swift test --package-path Packages/FamilyCore
+
+  ios:
+    name: Core tests and app build (macOS)
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - run: xcodebuild -version
+      - run: swift test --package-path Packages/FamilyCore
+      - run: brew install xcodegen
+      - run: xcodegen generate
+      - name: Build app for the iOS Simulator
+        run: >
+          xcodebuild build
+          -project FamilyScheduling.xcodeproj
+          -scheme FamilyScheduling
+          -destination 'generic/platform=iOS Simulator'
+          CODE_SIGNING_ALLOWED=NO
