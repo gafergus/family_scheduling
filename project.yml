@@ -1,6 +1,6 @@
 name: FamilyScheduling
 options:
-  bundleIdPrefix: ai.chrysalis
+  bundleIdPrefix: com.chrysalis-ai-consulting
   deploymentTarget:
     iOS: "18.0"
 packages:
@@ -19,7 +19,7 @@ targets:
       - package: FamilyCore
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: ai.chrysalis.familyscheduling
+        PRODUCT_BUNDLE_IDENTIFIER: com.chrysalis-ai-consulting.familyscheduling
         GENERATE_INFOPLIST_FILE: YES
         INFOPLIST_KEY_CFBundleDisplayName: Family Scheduling
         INFOPLIST_KEY_UILaunchScreen_Generation: YES
